@@ -67,7 +67,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.head.appendChild(link);
 
                 console.log("Small menu CSS loaded");
-
+                const hamburger = document.getElementById('hamburger');
+                const menuContainer = document.getElementById('menu-container');
+        
+                hamburger.addEventListener('click', function () {
+                    menuContainer.classList.toggle('expanded');
+                });
+                
                 attachMenuEventListeners(); // Attach event listeners for small menu
             });
         } else {
