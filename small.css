@@ -5,17 +5,75 @@ nav {
 }
 
 nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #f7f7f7;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: 600;
     width: 100%;
     text-align: center;
+    background-color: rgb(21, 60, 94);
+}
+nav ul{
+    width: 100%;
+    background-color: antiquewhite;
+}
+nav li{
+    width: 100%;
+    background-color: rebeccapurple;
 }
 
+/* Base styles for menu items */
 .menu {
     list-style: none;
-    display: none; /* Hidden by default */
+    padding: 0;
+    display: none; /* Hidden by default for small screens */
+    flex-direction: column;
+  }
+  
+  .menu-item, .submenu-link {
+    position: relative;
+    padding: 10px;
+  }
+  
+  .submenu, .subsubmenu {
+    display: none; /* Initially hidden, JavaScript will control display */
+  }
+  
+  .hamburger {
+    display: block;
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  @media (min-width: 769px) {
+    .menu {
+      display: flex; /* Menu is visible by default on larger screens */
+      flex-direction: row;
+    }
+  
+    .hamburger {
+      display: none; /* Hide hamburger on large screens */
+    }
+  }
+  
+
+
+/* .menu {
+    list-style: none;
+    display: flex;
 }
 
-.menu ul {
+.menu > ul {
     list-style: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-item {
@@ -37,7 +95,7 @@ nav a {
 }
 
 .submenu, .subsubmenu {
-    display: none; /* Keep the submenus hidden initially */
+    display: none;
     position: absolute;
     background-color: #bca5beaa;
     min-width: 150px;
@@ -51,7 +109,6 @@ nav a {
     white-space: nowrap;
 }
 
-/* Submenu positioning */
 .submenu {
     top: 100%;
     left: 0;
@@ -62,14 +119,12 @@ nav a {
     left: 100%;
 }
 
-/* Styles for the hamburger button */
 .hamburger {
     cursor: pointer;
     display: block;
     padding: 10px;
 }
 
-/* Expanded state for the menu */
 .menu.expanded {
-    display: block; /* Show the menu when expanded */
-}
+    display: block;
+} */

@@ -3,84 +3,96 @@ import { HtmlLoader } from "./loader.js";
 document.addEventListener("DOMContentLoaded", function() {
     let menu = new HtmlLoader();
 
-    function loadMenu() {
-        const existingMenu = document.getElementById('menu');
-        if (existingMenu) {
-            existingMenu.remove();
-        }
+    function attachMenuEventListeners() {
+        // Select all the main menu items after the menu is loaded
+        const menuItems = document.querySelectorAll('.menu-item');
 
-        if (window.innerWidth <= 500) {
-            menu.loadmeniu('./menu-small.html', 'menu-container', function() {
-                console.log("small menu loaded");
-
-                // Toggle menu visibility on hamburger click
-                const hamburger = document.getElementById('hamburger');
-                const menuElement = document.getElementById('menu');
-                if (hamburger) {
-                    hamburger.addEventListener('click', function() {
-                        menuElement.classList.toggle('expanded');
-                        if (menuElement.classList.contains('expanded')) {
-                            console.log("menu expanded");
-                        } else {
-                            console.log("menu collapsed");
-                        }
-                    });
-                } else {
-                    console.error('Hamburger element not found');
+        menuItems.forEach((item) => {
+            // Show submenu when mouse enters the menu item
+            item.addEventListener('mouseover', (event) => {
+                const submenu = item.querySelector('.submenu');
+                if (submenu) {
+                    submenu.style.display = 'block'; // Show submenu
                 }
             });
 
-            var link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.type = 'text/css';
-            link.href = './small.css';
-            link.setAttribute('data-menu', 'small');
-            document.head.appendChild(link);
+            // Hide submenu when mouse leaves the menu item
+            item.addEventListener('mouseout', (event) => {
+                const submenu = item.querySelector('.submenu');
+                if (submenu) {
+                    submenu.style.display = 'none'; // Hide submenu
+                }
+            });
 
-            console.log("small menu CSS loaded");
-        } else {
-            menu.loadmeniu('./menu.html', 'menu-container', function() {
-                console.log("menu loaded");
-
-                const menuItems = document.querySelectorAll('.menu-item');
-
-                menuItems.forEach((item) => {
-                    item.addEventListener('mouseover', (event) => {
-                        const submenu = item.querySelector('.submenu');
-                        if (submenu) {
-                            submenu.style.display = 'block';
-                        }
-                    });
-
-                    item.addEventListener('mouseout', (event) => {
-                        const submenu = item.querySelector('.submenu');
-                        if (submenu) {
-                            submenu.style.display = 'none';
-                        }
-                    });
-
-                    const submenuItems = item.querySelectorAll('.submenu > li');
-                    submenuItems.forEach((subitem) => {
-                        subitem.addEventListener('mouseover', (event) => {
-                            const subsubmenu = subitem.querySelector('.subsubmenu');
-                            if (subsubmenu) {
-                                subsubmenu.style.display = 'block';
-                            }
-                        });
-
-                        subitem.addEventListener('mouseout', (event) => {
-                            const subsubmenu = subitem.querySelector('.subsubmenu');
-                            if (subsubmenu) {
-                                subsubmenu.style.display = 'none';
-                            }
-                        });
-                    });
+            // For submenus that contain further submenus (sub-submenus)
+            const submenuItems = item.querySelectorAll('.submenu > li');
+            submenuItems.forEach((subitem) => {
+                subitem.addEventListener('mouseover', (event) => {
+                    const subsubmenu = subitem.querySelector('.subsubmenu');
+                    if (subsubmenu) {
+                        subsubmenu.style.display = 'block'; // Show sub-submenu
+                    }
                 });
+
+                subitem.addEventListener('mouseout', (event) => {
+                    const subsubmenu = subitem.querySelector('.subsubmenu');
+                    if (subsubmenu) {
+                        subsubmenu.style.display = 'none'; // Hide sub-submenu
+                    }
+                });
+            });
+        });
+    }
+
+    function loadMenu() {
+        // Clear any previously loaded menu and CSS
+        document.getElementById('menu').innerHTML = '';
+
+        // Remove any previously loaded CSS
+        const existingSmallLink = document.querySelector('link[data-menu="small"]');
+        const existingBigLink = document.querySelector('link[data-menu="big"]');
+        if (existingSmallLink) existingSmallLink.remove();
+        if (existingBigLink) existingBigLink.remove();
+
+        if (window.innerWidth <= 500) {
+            menu.loadmeniu('./menu-small.html', 'menu', function() {
+                console.log("Small menu loaded");
+
+                // Create a new link element for small menu CSS
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = './small.css';
+                link.setAttribute('data-menu', 'small');
+                document.head.appendChild(link);
+
+                console.log("Small menu CSS loaded");
+
+                attachMenuEventListeners(); // Attach event listeners for small menu
+            });
+        } else {
+            menu.loadmeniu('./menu.html', 'menu', function() {
+                console.log("Big menu loaded");
+
+                // Create a new link element for big menu CSS
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = './big.css';
+                link.setAttribute('data-menu', 'big');
+                document.head.appendChild(link);
+
+                console.log("Big menu CSS loaded");
+
+                attachMenuEventListeners(); // Attach event listeners for big menu
             });
         }
     }
 
+    // Load the appropriate menu initially
     loadMenu();
+
+    // Reload menu when window is resized
     window.addEventListener('resize', function() {
         loadMenu();
     });
