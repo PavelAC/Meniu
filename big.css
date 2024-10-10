@@ -30,7 +30,7 @@ nav {
   }
   
   .submenu, .subsubmenu {
-    display: none; /* Keep the submenus hidden initially */
+    display: none; 
     position: absolute;
     background-color: #bca5beaa;
     min-width: 150px;
@@ -43,7 +43,7 @@ nav {
     white-space: nowrap;
   }
   
-  /* Submenu positioning */
+
   .submenu {
     top: 100%;
     left: 0;
