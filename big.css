@@ -1,0 +1,55 @@
+nav {
+    background-color: #bca5bec7;
+    padding: 20px;
+  }
+  
+  .menu {
+    list-style: none;
+  }
+  
+  .menu ul {
+    list-style: none;
+  }
+  
+  .menu-item {
+    background-color: #be1818;
+    display: inline-block;
+    position: relative;
+  }
+  
+  .menu-item a {
+    color: #f7f7f7;
+    text-decoration: none;
+  }
+  
+  .menu-item > a {
+    background-color: #bca5be;
+    padding: 10px 20px;
+    display: block;
+    white-space: nowrap;
+  }
+  
+  .submenu, .subsubmenu {
+    display: none; 
+    position: absolute;
+    background-color: #bca5beaa;
+    min-width: 150px;
+    z-index: 10;
+    text-align: center;
+  }
+  .submenu a, .subsubmenu a{
+    padding: 10px 20px;
+    display: block;
+    white-space: nowrap;
+  }
+  
+
+  .submenu {
+    top: 100%;
+    left: 0;
+  }
+  
+  .subsubmenu {
+    top: 0;
+    left: 100%;
+  }
